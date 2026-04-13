@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WanderWords for Schools — Institutional Solution Mapping</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,700&family=Nunito:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════
+       WANDERWORDS BRAND TOKENS
+    ═══════════════════════════════ */
+    :root {
+      --cream:        #f6f1e8;
+      --cream-deep:   #f0e8d8;
+      --cream-desk:   #f8f4ec;
+      --white-pure:   #fbfbfb;
+      --dark:         #211e1a;
+      --dark-800:     #34312c;
+      --orange:       #ff6821;
+      --orange-dim:   rgba(255,104,33,0.08);
+      --orange-soft:  rgba(255,104,33,0.15);
+      --teal:         #2ab8a8;
+      --teal-dim:     rgba(42,184,168,0.08);
+      --teal-soft:    rgba(42,184,168,0.15);
+      --warm-brown:   #766855;
+      --warm-brown-dim: rgba(118,104,85,0.08);
+      --celebration:  #e8634f;
+      --border:       rgba(118,104,85,0.12);
+      --border-strong:rgba(118,104,85,0.2);
+
+      --ready:        #2ab8a8;
+      --ready-bg:     rgba(42,184,168,0.1);
+      --adapt:        #ff6821;
+      --adapt-bg:     rgba(255,104,33,0.08);
+      --build:        #e8634f;
+      --build-bg:     rgba(232,99,79,0.08);
+
+      --font-heading: 'Fraunces', Georgia, serif;
+      --font-body:    'Nunito', 'Segoe UI', sans-serif;
+      --font-zh:      'Noto Sans SC', sans-serif;
+      --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+      --radius:       16px;
+      --radius-sm:    8px;
+      --radius-xs:    4px;
+      --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+      --shadow-sm:    0 4px 16px rgba(33,30,26,0.08);
+      --shadow-md:    0 8px 32px rgba(33,30,26,0.12);
+      --shadow-lg:    0 12px 40px rgba(33,30,26,0.16);
+    }
+
+    /* ═══════════════════════════════
+       RESET + BASE
+    ═══════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      line-height: 1.15;
+      color: var(--dark);
+    }
+    p { line-height: 1.72; color: #3a3228; }
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.82em;
+      background: var(--warm-brown-dim);
+      padding: 1px 6px;
+      border-radius: var(--radius-xs);
+    }
+
+    /* ═══════════════════════════════
+       NAV — sidebar
+    ═══════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 250px; height: 100vh;
+      background: var(--white-pure);
+      border-right: 1px solid var(--border);
+      padding: 28px 20px;
+      overflow-y: auto;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-brand {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 2px;
+      letter-spacing: -0.01em;
+    }
+    .nav-brand-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--orange);
+      border-radius: 50%;
+      margin-left: 2px;
+      vertical-align: super;
+    }
+    .nav-subtitle {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--warm-brown);
+      margin-bottom: 28px;
+      font-weight: 800;
+    }
+    .nav-list {
+      list-style: none;
+      flex: 1;
+    }
+    .nav-list li { margin-bottom: 2px; }
+    .nav-list a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--warm-brown);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+      line-height: 1.4;
+    }
+    .nav-list a:hover {
+      background: var(--orange-dim);
+      color: var(--orange);
+    }
+    .nav-list a.active {
+      background: var(--orange-dim);
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .nav-group-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(118,104,85,0.6);
+      padding: 18px 12px 6px;
+      font-weight: 800;
+    }
+
+    /* ═══════════════════════════════
+       MAIN
+    ═══════════════════════════════ */
+    .main {
+      margin-left: 250px;
+      max-width: 880px;
+      padding: 48px 48px 120px;
+    }
+
+    /* ═══════════════════════════════
+       HERO
+    ═══════════════════════════════ */
+    .hero {
+      padding: 56px 0 48px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--orange);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 .accent { color: var(--orange); }
+    .hero-lead {
+      font-size: 1.08rem;
+      color: #5a4a38;
+      max-width: 640px;
+      line-height: 1.75;
+      font-weight: 600;
+    }
+    .hero-meta {
+      margin-top: 28px;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      font-size: 0.78rem;
+      color: var(--warm-brown);
+      font-weight: 600;
+    }
+    .hero-meta-item strong {
+      color: var(--dark-800);
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════
+       SECTIONS
+    ═══════════════════════════════ */
+    .section {
+      margin-bottom: 64px;
+      scroll-margin-top: 24px;
+    }
+    .section-num {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--orange);
+      background: var(--orange-dim);
+      padding: 3px 10px;
+      border-radius: var(--radius-xs);
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+    .section h2 {
+      font-size: clamp(1.5rem, 2.5vw, 1.85rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .section-desc {
+      font-size: 0.95rem;
+      color: #5a4a38;
+      margin-bottom: 28px;
+      max-width: 640px;
+      font-weight: 600;
+    }
+    .section h3 {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 32px 0 14px;
+    }
+    p { margin-bottom: 14px; font-size: 0.93rem; }
+
+    /* ═══════════════════════════════
+       TABLES
+    ═══════════════════════════════ */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--white-pure);
+      box-shadow: var(--shadow-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    thead { position: sticky; top: 0; z-index: 2; }
+    th {
+      background: var(--cream-deep);
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 16px;
+      color: var(--dark);
+      border-bottom: 1px solid var(--border-strong);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.55;
+      color: #3a3228;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: rgba(246,241,232,0.5); }
+    tr:hover td { background: var(--orange-dim); }
+
+    /* ═══════════════════════════════
+       STATUS BADGES
+    ═══════════════════════════════ */
+    .badge {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .badge--ready { background: var(--ready-bg); color: var(--ready); }
+    .badge--adapt { background: var(--adapt-bg); color: var(--adapt); }
+    .badge--build { background: var(--build-bg); color: var(--build); }
+
+    /* ═══════════════════════════════
+       CARDS
+    ═══════════════════════════════ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .card {
+      background: var(--white-pure);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: transform 300ms var(--ease-spring), box-shadow 300ms ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .card-label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .card h4 {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .card p, .card li {
+      font-size: 0.85rem;
+      color: #5a4a38;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .card ul { list-style: none; padding: 0; }
+    .card ul li {
+      padding: 3px 0 3px 16px;
+      position: relative;
+    }
+    .card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 11px;
+      width: 5px; height: 5px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+
+    /* Hero card — teal tinted */
+    .card--hero {
+      background: linear-gradient(135deg, rgba(42,184,168,0.06), rgba(42,184,168,0.02));
+      border-color: rgba(42,184,168,0.2);
+    }
+
+    /* Model card — orange left border */
+    .card--model {
+      border-left: 4px solid var(--orange);
+    }
+
+    /* ═══════════════════════════════
+       CALLOUT — warm brown border
+    ═══════════════════════════════ */
+    .callout {
+      background: var(--cream-deep);
+      border-left: 4px solid var(--teal);
+      padding: 18px 22px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 24px 0;
+      font-size: 0.88rem;
+      color: #3a3228;
+      font-weight: 600;
+    }
+    .callout strong { color: var(--dark); }
+
+    /* ═══════════════════════════════
+       FLOW DIAGRAM
+    ═══════════════════════════════ */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 28px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .flow-step {
+      background: var(--white-pure);
+      border: 2px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      min-width: 110px;
+      color: var(--dark);
+    }
+    .flow-arrow {
+      color: var(--warm-brown);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .flow-step--active {
+      background: var(--orange);
+      color: white;
+      border-color: var(--orange);
+      box-shadow: 0 4px 16px rgba(255,104,33,0.25);
+    }
+
+    /* ═══════════════════════════════
+       ROLE CARDS
+    ═══════════════════════════════ */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+    .role-card {
+      background: var(--white-pure);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      border-top: 4px solid var(--teal);
+    }
+    .role-card h4 {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .role-card .role-status { margin-bottom: 10px; }
+    .role-card p, .role-card li {
+      font-size: 0.83rem;
+      color: #5a4a38;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════
+       PILOT BOX
+    ═══════════════════════════════ */
+    .pilot-box {
+      background: var(--white-pure);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin: 24px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .pilot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .pilot-stat {
+      text-align: center;
+      padding: 20px;
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+    }
+    .pilot-stat .num {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--orange);
+    }
+    .pilot-stat .label {
+      font-size: 0.78rem;
+      color: var(--warm-brown);
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════
+       POSITIONING CLOSE
+    ═══════════════════════════════ */
+    .positioning {
+      background: linear-gradient(135deg, rgba(42,184,168,0.08), rgba(42,184,168,0.03));
+      border: 1px solid rgba(42,184,168,0.18);
+      border-radius: var(--radius);
+      padding: 36px;
+      margin: 28px 0;
+    }
+    .positioning h3 {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    .positioning p {
+      font-size: 0.95rem;
+      color: #3a3228;
+      max-width: 620px;
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════
+       GAP SUMMARY PILLS
+    ═══════════════════════════════ */
+    .gap-summary {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .gap-pill {
+      flex: 1;
+      min-width: 160px;
+      padding: 18px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+    .gap-pill .num {
+      font-family: var(--font-heading);
+      font-variation-settings: 'SOFT' 0, 'WONK' 1;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+    .gap-pill .label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    .footer-block {
+      margin-top: 40px;
+      padding: 24px;
+      background: var(--cream-deep);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .footer-block p {
+      font-size: 0.84rem;
+      color: var(--warm-brown);
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════ */
+    @media (max-width: 920px) {
+      .nav { display: none; }
+      .main { margin-left: 0; padding: 32px 24px 80px; }
+      .hero h1 { font-size: 2rem; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.6rem; }
+      .pilot-grid { grid-template-columns: 1fr; }
+      .gap-summary { flex-direction: column; }
+    }
+
+    /* ═══════════════════════════════
+       ANIMATIONS — storybook-feel entrance
+    ═══════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section {
+      animation: fadeUp 0.5s var(--ease-spring) both;
+    }
+    .section:nth-child(2) { animation-delay: 0.05s; }
+    .section:nth-child(3) { animation-delay: 0.1s; }
+    @media (prefers-reduced-motion: reduce) {
+      .section { animation: none; }
+    }
+
+    /* ═══════════════════════════════
+       PRINT
+    ═══════════════════════════════ */
+    @media print {
+      .nav { display: none; }
+      .main { margin-left: 0; max-width: 100%; }
+      .card:hover { transform: none; box-shadow: none; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ SIDEBAR NAV ═══════════ -->
+<nav class="nav">
+  <div class="nav-brand">WanderWords<span class="nav-brand-dot"></span></div>
+  <div class="nav-subtitle">For Schools</div>
+  <ul class="nav-list">
+    <li class="nav-group-label">Foundation</li>
+    <li><a href="#exec">Executive Reframe</a></li>
+    <li><a href="#translation">B2C → B2B Translation</a></li>
+    <li><a href="#surfaces">Product Surface Map</a></li>
+    <li class="nav-group-label">School Fit</li>
+    <li><a href="#use-cases">School Use Cases</a></li>
+    <li><a href="#roles">User Model Expansion</a></li>
+    <li><a href="#value">Value Proposition</a></li>
+    <li class="nav-group-label">Partnership</li>
+    <li><a href="#whitelabel">White-Label / OEM</a></li>
+    <li><a href="#advantage">System Advantage</a></li>
+    <li><a href="#gaps">Gap Analysis</a></li>
+    <li class="nav-group-label">Execution</li>
+    <li><a href="#pilot">Pilot Proposal</a></li>
+    <li><a href="#commercial">Commercial Models</a></li>
+    <li><a href="#positioning">Strategic Positioning</a></li>
+  </ul>
+</nav>
+
+<div class="main">
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero" id="top">
+  <span class="hero-eyebrow">Confidential — Partnership Discussion</span>
+  <h1>WanderWords <span class="accent">for Schools</span></h1>
+  <p class="hero-lead">A production-grade Mandarin learning engine — adaptive stories, structured progression, printable worksheets, gamified practice — reframed for institutional deployment, school partnerships, and white-label licensing.</p>
+  <div class="hero-meta">
+    <span class="hero-meta-item"><strong>Status:</strong> Live at app.wanderwords.co</span>
+    <span class="hero-meta-item"><strong>Prepared:</strong> April 2026</span>
+    <span class="hero-meta-item"><strong>Audience:</strong> Mandarin schools, academies, OEM partners</span>
+  </div>
+</header>
+
+<!-- ═══════════ 01 EXECUTIVE REFRAME ═══════════ -->
+<section class="section" id="exec">
+  <span class="section-num">01</span>
+  <h2>Executive Reframe</h2>
+  <p class="section-desc">WanderWords is not "just a children's Chinese learning app." It is a structured Mandarin acquisition engine with five interlocking capabilities that map directly to institutional needs.</p>
+
+  <div class="card-grid">
+    <div class="card card--hero">
+      <div class="card-label" style="color:var(--teal);">Curriculum Delivery Layer</div>
+      <h4>Adaptive Story Generation</h4>
+      <p>AI-generated stories calibrated to each student's exact vocabulary level. Every story uses only known characters plus 3–5 new introductions — comprehension-first learning, not random content.</p>
+    </div>
+    <div class="card card--hero">
+      <div class="card-label" style="color:var(--teal);">Progression Engine</div>
+      <h4>State Machine + XP System</h4>
+      <p>Characters move through <code>to_learn → practicing → known</code> via blended evidence (story exposure + writing practice). Event-sourced XP ledger. 12-level system. Config-driven unlocks.</p>
+    </div>
+    <div class="card card--hero">
+      <div class="card-label" style="color:var(--teal);">Reinforcement Bridge</div>
+      <h4>Home ↔ School Continuity</h4>
+      <p>Printable PDF worksheets with stroke order (田字格 grids), mnemonic decomposition, and example sentences pulled from the student's own stories. Digital practice meets physical writing.</p>
+    </div>
+    <div class="card card--hero">
+      <div class="card-label" style="color:var(--teal);">Engagement System</div>
+      <h4>Gamification + Mascot Cast</h4>
+      <p>Six recurring mascot characters (Qi, Ling, Ming, Yong, Fent, Meng) appear in every story. XP rewards, level badges, streak tracking, and celebration moments create retention loops that keep students reading between classes.</p>
+    </div>
+    <div class="card card--hero">
+      <div class="card-label" style="color:var(--teal);">Access &amp; Billing Foundation</div>
+      <h4>Multi-Profile Architecture</h4>
+      <p>One parent account supports multiple child profiles, each with independent vocabulary state, story history, and progression data. Trial, monthly, and annual plans with Stripe-powered billing.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Key point:</strong> Every component listed above is built, deployed, and live in production at app.wanderwords.co — not a roadmap item. The school partnership question is about reframing and extending a working system, not building one.
+  </div>
+</section>
+
+<!-- ═══════════ 02 B2C → B2B TRANSLATION ═══════════ -->
+<section class="section" id="translation">
+  <span class="section-num">02</span>
+  <h2>B2C → B2B Translation Layer</h2>
+  <p class="section-desc">A structured mapping of every existing consumer-facing surface to its institutional equivalent.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Current B2C Surface</th>
+          <th>School / B2B Equivalent</th>
+          <th>What Changes</th>
+          <th>Lift</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Parent account</strong></td>
+          <td>Family portal / home reinforcement account</td>
+          <td>Remains as-is. Parent is still the home-side user.</td>
+          <td><span class="badge badge--ready">None</span></td>
+        </tr>
+        <tr>
+          <td><strong>Child profile</strong></td>
+          <td>Student profile</td>
+          <td>Add optional school/class association. Core model unchanged.</td>
+          <td><span class="badge badge--adapt">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Dashboard</strong> (story streak, XP, level badge, progress ring)</td>
+          <td>Student dashboard + parent view</td>
+          <td>No change. Already shows per-child progress with level, XP, streak.</td>
+          <td><span class="badge badge--ready">None</span></td>
+        </tr>
+        <tr>
+          <td><strong>Story generation</strong> (theme selection → AI story)</td>
+          <td>Guided reading assignment / take-home reinforcement</td>
+          <td>Teacher can pre-select themes or assign "generate a story tonight." Engine is the same.</td>
+          <td><span class="badge badge--adapt">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Story reader</strong> (pinyin toggle, character tap, comprehension)</td>
+          <td>Student reading experience</td>
+          <td>No change needed. Pinyin toggle per-child already exists.</td>
+          <td><span class="badge badge--ready">None</span></td>
+        </tr>
+        <tr>
+          <td><strong>Post-story review</strong> (mark hard characters)</td>
+          <td>Teacher/parent review checkpoint</td>
+          <td>Add teacher as additional reviewer. Current parent flow unchanged.</td>
+          <td><span class="badge badge--adapt">Med</span></td>
+        </tr>
+        <tr>
+          <td><strong>Bookshelf</strong> (story history, re-reading)</td>
+          <td>Reading log / portfolio</td>
+          <td>Add teacher read-only view. Core bookshelf unchanged.</td>
+          <td><span class="badge badge--adapt">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Workbook</strong> (character list by state: known/practicing/to_learn)</td>
+          <td>Student mastery dashboard</td>
+          <td>Map existing states to school-friendly labels. Add aggregate view for teacher.</td>
+          <td><span class="badge badge--adapt">Med</span></td>
+        </tr>
+        <tr>
+          <td><strong>Worksheet PDF generation</strong> (stroke order, 田字格, mnemonics)</td>
+          <td>Printable homework / class worksheets</td>
+          <td>Already generates print-ready PDFs. Teacher bulk-generation is an extension.</td>
+          <td><span class="badge badge--adapt">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Character state machine</strong> (auto-graduation via blended evidence)</td>
+          <td>Competency tracking / mastery model</td>
+          <td>No change. State machine is curriculum-agnostic.</td>
+          <td><span class="badge badge--ready">None</span></td>
+        </tr>
+        <tr>
+          <td><strong>Curriculum selector</strong> (HSK 1–3, YCT 1–4, Starter 500)</td>
+          <td>Curriculum alignment layer</td>
+          <td>Add school-specific curriculum presets. Current selector framework handles it.</td>
+          <td><span class="badge badge--adapt">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>XP / levels / streaks</strong> (12-level system, event-sourced)</td>
+          <td>Participation &amp; motivation system</td>
+          <td>Config-driven — thresholds, XP values tunable without code changes.</td>
+          <td><span class="badge badge--ready">None</span></td>
+        </tr>
+        <tr>
+          <td><strong>Stroke practice</strong> (HanziWriter quiz mode, rounds of 5)</td>
+          <td>Writing practice module</td>
+          <td>Architecture locked (ADR-035). Dual entry points. No school-specific changes needed.</td>
+          <td><span class="badge badge--ready">None</span></td>
+        </tr>
+        <tr>
+          <td><strong>Onboarding</strong> (use case → curriculum → character baseline)</td>
+          <td>Student enrollment / placement</td>
+          <td>Add school-provisioned enrollment path (teacher sets baseline).</td>
+          <td><span class="badge badge--adapt">Med</span></td>
+        </tr>
+        <tr>
+          <td><strong>Subscription billing</strong> (Stripe, trial, monthly, annual)</td>
+          <td>School license / seat model / institutional billing</td>
+          <td>New billing layer needed. Current Stripe integration provides foundation.</td>
+          <td><span class="badge badge--build">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Mascot characters</strong> (Qi, Ling, Ming, Yong, Fent, Meng)</td>
+          <td>Brand engagement layer / white-label customizable</td>
+          <td>In branded mode: keep as-is. In OEM mode: mascots are replaceable assets.</td>
+          <td><span class="badge badge--adapt">Med</span></td>
+        </tr>
+        <tr>
+          <td><strong>Admin panel</strong> (user management, comps, subscriptions)</td>
+          <td>School admin console</td>
+          <td>Extend existing admin with teacher/class management. Admin auth exists.</td>
+          <td><span class="badge badge--build">High</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ 03 PRODUCT SURFACE MAP ═══════════ -->
+<section class="section" id="surfaces">
+  <span class="section-num">03</span>
+  <h2>Product Surface Mapping</h2>
+  <p class="section-desc">Each major product surface, its current state, what it means for schools, and white-label relevance.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Surface</th>
+          <th>Current State</th>
+          <th>School Value</th>
+          <th>OEM Relevance</th>
+          <th>Lift</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Story Generation Loop</strong></td>
+          <td>Live. GPT-4o-mini generates stories calibrated to child's known vocabulary + 3–5 new characters. Theme selection. Retry logic. Structured validation. Atomic creation via RPC.</td>
+          <td>Take-home reading that reinforces what was taught in class. Every student gets a unique story matched to their level.</td>
+          <td>Core engine. Licensable as API. Theme/prompt layer is customizable.</td>
+          <td><span class="badge badge--ready">Ready</span></td>
+        </tr>
+        <tr>
+          <td><strong>Reading &amp; Review Flow</strong></td>
+          <td>Live. Story reader with pinyin toggle, character tap-to-learn, post-story celebration, parent review screen.</td>
+          <td>Students read independently or with parents. Teachers see which characters were marked hard.</td>
+          <td>Core UX. Skinnable. Character interaction model is the differentiator.</td>
+          <td><span class="badge badge--ready">Ready</span></td>
+        </tr>
+        <tr>
+          <td><strong>Worksheet PDF Engine</strong></td>
+          <td>Live. Puppeteer-generated PDFs with stroke order decomposition (Make Me a Hanzi data), 田字格 grids, pinyin, English meanings, contextual example sentences.</td>
+          <td>Print-ready homework. Personalized to each student. Quality comparable to commercial 田字格 workbooks.</td>
+          <td>High OEM value. Schools can brand worksheets. Already generates professional output.</td>
+          <td><span class="badge badge--ready">Ready</span></td>
+        </tr>
+        <tr>
+          <td><strong>Character Mastery Model</strong></td>
+          <td>Live. Three-state machine (to_learn → practicing → known). Blended evidence: 3 story exposures + writing practice per hop. Parent override. Event-sourced audit trail.</td>
+          <td>Objective competency tracking. Teachers see exactly which characters each student knows, is practicing, or hasn't started.</td>
+          <td>Core IP. The evidence model and state machine are the pedagogical backbone.</td>
+          <td><span class="badge badge--ready">Ready</span></td>
+        </tr>
+        <tr>
+          <td><strong>Gamification</strong></td>
+          <td>Live. 12-level system. Event-sourced XP ledger. Streak tracking. Level-up celebrations. Config-driven unlock thresholds. Dashboard gamification card.</td>
+          <td>Participation incentive. "Homework kids actually want to do." Reduces dropout between sessions.</td>
+          <td>XP values and level names are config-driven — tunable per deployment without code changes.</td>
+          <td><span class="badge badge--ready">Ready</span></td>
+        </tr>
+        <tr>
+          <td><strong>Curriculum System</strong></td>
+          <td>Live. HSK 1–3, YCT 1–4, LinguaPals Starter 500. Two-layer onboarding.</td>
+          <td>Schools align to their own curriculum. Custom character list is a configuration task.</td>
+          <td>Curriculum presets are data, not code. Adding a school's custom list is config-level work.</td>
+          <td><span class="badge badge--adapt">Adapt</span></td>
+        </tr>
+        <tr>
+          <td><strong>Multi-Profile System</strong></td>
+          <td>Live. One parent account, multiple child profiles. Each child has independent state. Max 5 learners.</td>
+          <td>Foundation for classroom rosters. Each student already has isolated state.</td>
+          <td>Multi-tenant architecture is implicit. Needs explicit tenant/school layer for true B2B.</td>
+          <td><span class="badge badge--adapt">Adapt</span></td>
+        </tr>
+        <tr>
+          <td><strong>Billing &amp; Access</strong></td>
+          <td>Live. Stripe. Trial → checkout → webhook → subscription. Monthly, annual, add-on child. Access state resolver.</td>
+          <td>Foundation exists but needs institutional billing layer (school license, seat model).</td>
+          <td>Stripe infra reusable. Needs new billing entity (school) above parent accounts.</td>
+          <td><span class="badge badge--build">Build</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ 04 SCHOOL USE CASES ═══════════ -->
+<section class="section" id="use-cases">
+  <span class="section-num">04</span>
+  <h2>School Use Cases</h2>
+  <p class="section-desc">Five concrete institutional modes where WanderWords fits today — with honest assessment of what's ready and what needs work.</p>
+
+  <div class="card-grid" style="grid-template-columns: 1fr;">
+
+    <div class="card">
+      <div class="card-label" style="color:var(--orange);">Use Case A</div>
+      <h4>Mandarin Weekend School — Between-Class Reinforcement</h4>
+      <p><strong>Who uses it:</strong> Students attend Saturday/Sunday Mandarin school. Parents want structured practice during the week.</p>
+      <p><strong>How it fits:</strong> Teacher sets the curriculum level to match the school's textbook. Each week, the student generates 2–3 stories using characters from class. Worksheets are printed for at-home writing practice. The parent sees the same character states the school is teaching.</p>
+      <p><strong>Value created:</strong> Students get 5× more exposure to characters between classes. Parents have a concrete "homework" tool. Schools can point to measurable between-class engagement.</p>
+      <p><strong>Already relevant:</strong> Story generation, curriculum selector, worksheet PDFs, character mastery tracking, XP/streak system.</p>
+      <p><strong>Adaptation needed:</strong> <span class="badge badge--adapt">Low</span> — Teacher needs read-only view of student progress. Curriculum presets should match common weekend school textbooks (Mei Zhou, Ma Li Ping, etc.).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label" style="color:var(--orange);">Use Case B</div>
+      <h4>After-School Enrichment Program — Engagement + Retention</h4>
+      <p><strong>Who uses it:</strong> After-school Mandarin programs competing for enrollment against other extracurriculars.</p>
+      <p><strong>How it fits:</strong> WanderWords becomes the "take-home" layer. Students use it between sessions. The gamification system (XP, levels, streaks) creates habit loops. Stories featuring the mascot crew give kids something to look forward to.</p>
+      <p><strong>Value created:</strong> Programs can offer "app-included" as a premium differentiator. Parents see tangible value (worksheets, progress data) beyond in-class time. Reduces churn — kids who use the app between sessions are less likely to drop the program.</p>
+      <p><strong>Already relevant:</strong> Full product loop, gamification, mascot engagement, streak system.</p>
+      <p><strong>Adaptation needed:</strong> <span class="badge badge--adapt">Low</span> — Program branding on login screen. Cohort-level progress view for program director.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label" style="color:var(--orange);">Use Case C</div>
+      <h4>Private Academy with Cohorts — Structured Curriculum Companion</h4>
+      <p><strong>Who uses it:</strong> A private Chinese language academy running multiple class levels with defined curricula.</p>
+      <p><strong>How it fits:</strong> Each class maps to a curriculum preset (HSK 1, HSK 2, etc.). Teachers assign story generation as homework. The character mastery model provides objective assessment data. Worksheets supplement class materials.</p>
+      <p><strong>Value created:</strong> Objective per-student mastery data. Personalized practice at scale. Professional-grade printable worksheets reduce teacher prep time.</p>
+      <p><strong>Already relevant:</strong> Curriculum system, mastery model, worksheet engine, multi-profile architecture.</p>
+      <p><strong>Adaptation needed:</strong> <span class="badge badge--adapt">Med</span> — Teacher dashboard with class roster, aggregate mastery view, and assignment capability. Roster import/invite flow.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label" style="color:var(--orange);">Use Case D</div>
+      <h4>Heritage Learner Supplemental Literacy — Home + School Bridge</h4>
+      <p><strong>Who uses it:</strong> Chinese heritage families where the child speaks Mandarin at home but reads/writes at a lower level.</p>
+      <p><strong>How it fits:</strong> The curriculum selector already handles this — "My Own Path" mode lets parents set a custom character baseline reflecting what the child speaks vs. reads. Stories are generated at the child's reading level, not their speaking level.</p>
+      <p><strong>Value created:</strong> Addresses the specific gap heritage learners face (oral fluency >> literacy). Schools can offer a differentiated practice tool.</p>
+      <p><strong>Already relevant:</strong> Curriculum selector with custom baseline, character state model, personalized story generation, writing worksheets.</p>
+      <p><strong>Adaptation needed:</strong> <span class="badge badge--ready">Low</span> — Heritage-specific curriculum presets. Messaging adjustment.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label" style="color:var(--orange);">Use Case E</div>
+      <h4>Teacher-Led + Home Follow-Through — Blended Learning Model</h4>
+      <p><strong>Who uses it:</strong> Any school that wants structured in-class teaching with measurable home practice.</p>
+      <p><strong>How it fits:</strong> Teacher introduces new characters in class. Students go home and generate a story using those characters. Parent and child read together. Parent reviews hard characters. Student prints and completes a writing worksheet. Next class, teacher has data on which characters each student found difficult.</p>
+      <p><strong>Value created:</strong> Closed feedback loop: teach → practice → measure → adjust. Parents are actively involved. "Homework" is a story about space pirates, not a drill sheet.</p>
+      <p><strong>Already relevant:</strong> Story generation with controlled new characters, post-reading review flow, worksheet generation, character mastery states.</p>
+      <p><strong>Adaptation needed:</strong> <span class="badge badge--adapt">Med</span> — Teacher-initiated assignment flow. Class-level mastery dashboard showing which characters the class collectively struggles with.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ 05 USER MODEL EXPANSION ═══════════ -->
+<section class="section" id="roles">
+  <span class="section-num">05</span>
+  <h2>User Model Expansion</h2>
+  <p class="section-desc">Current B2C roles mapped to B2B roles, with honest assessment of what exists vs. what's new.</p>
+
+  <div class="role-grid">
+    <div class="role-card">
+      <h4>Student</h4>
+      <div class="role-status"><span class="badge badge--ready">Exists as "Child Profile"</span></div>
+      <p><strong>Sees:</strong> Dashboard, story reader, bookshelf, workbook, celebration screens, XP/level</p>
+      <p><strong>Does:</strong> Reads stories, taps characters, completes writing practice, earns XP</p>
+      <p><strong>Status:</strong> Fully built. Profile isolation, independent state, multi-profile support all live.</p>
+    </div>
+    <div class="role-card">
+      <h4>Parent</h4>
+      <div class="role-status"><span class="badge badge--ready">Exists</span></div>
+      <p><strong>Sees:</strong> Dashboard, settings, billing, workbook review, story generation, all child profiles</p>
+      <p><strong>Does:</strong> Creates stories, reviews hard characters, generates worksheets, manages subscription</p>
+      <p><strong>Status:</strong> Fully built. In B2B context, parent role unchanged — they remain the home-side user.</p>
+    </div>
+    <div class="role-card">
+      <h4>Teacher</h4>
+      <div class="role-status"><span class="badge badge--build">New Role — Extension</span></div>
+      <p><strong>Would see:</strong> Class roster, per-student mastery breakdown, aggregate class progress, assignment controls</p>
+      <p><strong>Would do:</strong> View student progress, set curriculum level, assign story themes, review class-wide character difficulty patterns</p>
+      <p><strong>Foundation:</strong> Admin panel has user search, account management. Student data APIs already exist (<code>GET /progress/:childId</code>). Read-only teacher view is a permissions layer, not a new system.</p>
+    </div>
+    <div class="role-card">
+      <h4>School Admin</h4>
+      <div class="role-status"><span class="badge badge--build">New Role — Extension</span></div>
+      <p><strong>Would see:</strong> School-wide dashboard, all classes, enrollment stats, billing, teacher accounts</p>
+      <p><strong>Would do:</strong> Manage teachers, create classes, import rosters, handle institutional billing</p>
+      <p><strong>Foundation:</strong> Admin panel exists with user management and subscription controls. Needs school/tenant entity layer on top.</p>
+    </div>
+    <div class="role-card">
+      <h4>Class / Cohort Owner</h4>
+      <div class="role-status"><span class="badge badge--build">New Role — Extension</span></div>
+      <p><strong>Would see:</strong> Subset of teacher view, scoped to one class</p>
+      <p><strong>Would do:</strong> Same as teacher but limited to their assigned class</p>
+      <p><strong>Foundation:</strong> Data isolation already works per-child. Class = group of child profiles. Permission scoping is new.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Implementation reality:</strong> The Student and Parent roles are 100% built. The Teacher role is primarily a <em>read-only view</em> of existing data APIs — medium lift. School Admin and Class Owner require a new tenant/organization layer — highest lift item in the B2B transition.
+  </div>
+</section>
+
+<!-- ═══════════ 06 VALUE PROPOSITION ═══════════ -->
+<section class="section" id="value">
+  <span class="section-num">06</span>
+  <h2>Why Would a Mandarin School Care?</h2>
+  <p class="section-desc">Commercially legible value propositions grounded in real school problems.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:30%;">School Problem</th>
+          <th style="width:35%;">How WanderWords Solves It</th>
+          <th style="width:35%;">Mechanism (Already Built)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Students forget between classes.</strong> Weekend and after-school programs lose 80% of learning to the gap between sessions.</td>
+          <td>Structured daily practice that students actually enjoy. Stories are engaging; worksheets are personalized; XP/streaks create habit loops.</td>
+          <td>Story generation engine, worksheet PDFs, gamification system (XP, streaks, level-ups, celebration screens).</td>
+        </tr>
+        <tr>
+          <td><strong>Homework nobody wants to do.</strong> Generic worksheets are boring. Kids resist. Parents nag.</td>
+          <td>"Homework" is reading a story about space pirates or jungle explorers with their favorite mascot characters, then printing a personalized worksheet for the 5 characters they found hardest.</td>
+          <td>Theme-based story generation, mascot cast (6 characters), post-story character review, contextual worksheet generation tied to the child's own stories.</td>
+        </tr>
+        <tr>
+          <td><strong>Parents can't see what's happening.</strong> Parents pay tuition but can't track their child's actual progress between classes.</td>
+          <td>Real-time dashboard showing characters known, stories read, current level, streak, and mastery breakdown.</td>
+          <td>Parent dashboard with progress ring, XP counter, level badge, character mastery states (known/practicing/to_learn), bookshelf history.</td>
+        </tr>
+        <tr>
+          <td><strong>One-size-fits-all materials.</strong> Every student gets the same worksheet regardless of what they actually know.</td>
+          <td>Every story and worksheet is calibrated to the individual student's vocabulary level. A student who knows 200 characters gets different content than one who knows 50.</td>
+          <td>Per-student character state tracking, story generation with controlled vocabulary, character placement/sequencing rules, curriculum baseline system.</td>
+        </tr>
+        <tr>
+          <td><strong>Drop-off after the first semester.</strong> Motivation fades. Families leave.</td>
+          <td>Gamification creates long-term engagement. Students care about their level, their streak, their mascot characters.</td>
+          <td>12-level progression, streak system, XP celebrations, level-up modals, mascot crew that students develop attachment to across stories.</td>
+        </tr>
+        <tr>
+          <td><strong>Perceived low value of tuition.</strong> Parents question whether weekly classes alone justify the cost.</td>
+          <td>Schools that bundle WanderWords access can show: "Your tuition includes 7-days-a-week structured practice, personalized to your child."</td>
+          <td>Full product loop running 24/7. Worksheet PDFs are tangible. Dashboard progress is visible. The school's offering transforms from "2 hours of class" to "a complete learning system."</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ 07 WHITE-LABEL / OEM ═══════════ -->
+<section class="section" id="whitelabel">
+  <span class="section-num">07</span>
+  <h2>White-Label / OEM Positioning</h2>
+  <p class="section-desc">Three partnership models, from lightest to deepest integration.</p>
+
+  <div class="card-grid" style="grid-template-columns: 1fr;">
+
+    <div class="card card--model">
+      <div class="card-label" style="color:var(--orange);">Model A</div>
+      <h4>Branded School Partnership</h4>
+      <p><strong>What the school gets:</strong> WanderWords access bundled with tuition. School's name and logo on login screen. School-specific curriculum preset. Teacher gets read-only class progress dashboard. Students get the full WanderWords experience.</p>
+      <p><strong>What stays WanderWords:</strong> All product surfaces, mascot characters, story engine, branding within the app, domain (app.wanderwords.co).</p>
+      <p><strong>What can be branded:</strong> Login page co-branding, welcome message, curriculum label ("Mrs. Chen's HSK 1 Class"), worksheet header.</p>
+      <p><strong>Complexity:</strong> <span class="badge badge--adapt">Low–Med</span> — Primarily a billing and onboarding change. Teacher dashboard is the main new build.</p>
+      <p><strong>Sales attractiveness:</strong> Easiest to pitch. Lowest friction. "Add this to your program."</p>
+    </div>
+
+    <div class="card card--model">
+      <div class="card-label" style="color:var(--orange);">Model B</div>
+      <h4>White-Label OEM Deployment</h4>
+      <p><strong>What the school gets:</strong> The full WanderWords engine running under their own brand. Their name, logo, color scheme, domain. Custom mascot characters or no mascots.</p>
+      <p><strong>What stays WanderWords:</strong> Architecture, story generation engine, progression system, worksheet engine, all backend services. WanderWords is invisible to the end user.</p>
+      <p><strong>What can be branded:</strong> Everything visible — app name, domain, logos, color palette, mascot illustrations, curriculum labels, worksheet headers, celebration screens, onboarding copy.</p>
+      <p><strong>Complexity:</strong> <span class="badge badge--build">Med–High</span> — Multi-tenant architecture, theme engine, asset pipeline for custom mascots.</p>
+      <p><strong>Sales attractiveness:</strong> Higher revenue per deal. Targets larger academies or chains that want to own the student relationship.</p>
+    </div>
+
+    <div class="card card--model">
+      <div class="card-label" style="color:var(--orange);">Model C</div>
+      <h4>Curriculum Engine / Engagement Layer Integration</h4>
+      <p><strong>What the school gets:</strong> WanderWords' story generation engine and progression system as an API layer, integrated into their existing platform or LMS.</p>
+      <p><strong>What stays WanderWords:</strong> Backend APIs: story generation, character state management, XP calculation, worksheet PDF generation. No frontend.</p>
+      <p><strong>What can be branded:</strong> Everything — the school builds their own frontend. WanderWords is an invisible engine.</p>
+      <p><strong>Complexity:</strong> <span class="badge badge--build">High</span> — API productization, documentation, multi-tenant backend, SLA commitments.</p>
+      <p><strong>Sales attractiveness:</strong> Highest ceiling but longest sales cycle. Targets EdTech platforms, large academy chains.</p>
+    </div>
+
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Model A: Branded Partner</th>
+          <th>Model B: White-Label</th>
+          <th>Model C: Engine API</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Time to pilot</strong></td><td>4–6 weeks</td><td>8–12 weeks</td><td>12–20 weeks</td></tr>
+        <tr><td><strong>Revenue per school</strong></td><td>Low–Med</td><td>Med–High</td><td>High</td></tr>
+        <tr><td><strong>Engineering lift</strong></td><td>Teacher dashboard, billing</td><td>Multi-tenant, theming, deployment</td><td>API productization, docs, SLA</td></tr>
+        <tr><td><strong>School sees WanderWords brand?</strong></td><td>Yes — co-branded</td><td>No — school's brand only</td><td>No — invisible engine</td></tr>
+        <tr><td><strong>WanderWords controls UX?</strong></td><td>Yes</td><td>Mostly (themed)</td><td>No — school's frontend</td></tr>
+        <tr><td><strong>Best for</strong></td><td>Single schools, small academies</td><td>Academy chains, franchises</td><td>EdTech platforms, LMS vendors</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ 08 SYSTEM ADVANTAGE ═══════════ -->
+<section class="section" id="advantage">
+  <span class="section-num">08</span>
+  <h2>Why This Can Be Piloted Fast</h2>
+  <p class="section-desc">This is not a vaporware proposal. The system is live, hardened, and production-tested across 86 development sessions.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>Real Architecture</h4>
+      <p>React + Vite frontend on Vercel. Express 5 backend on Render. PostgreSQL on Supabase with Row-Level Security. Production infrastructure with structured logging, input sanitization, and error boundaries.</p>
+    </div>
+    <div class="card">
+      <h4>Real Progression Logic</h4>
+      <p>A deterministic state machine wrapped by a progression resolver that enforces invariants. Blended evidence model. Event-sourced XP. 10 formally defined invariants. Level 3 freeze on critical paths.</p>
+    </div>
+    <div class="card">
+      <h4>Real Learning Loop</h4>
+      <p>Story generation → reading with pinyin support → character review → worksheet generation → writing practice → mastery update. The full loop works end-to-end in production today.</p>
+    </div>
+    <div class="card">
+      <h4>Real Billing Foundation</h4>
+      <p>Stripe integration with webhooks, subscription management, trial-to-paid conversion, plan upgrades, add-on children, comp/revoke states, and a single-source-of-truth access resolver.</p>
+    </div>
+    <div class="card">
+      <h4>Real Curriculum Structures</h4>
+      <p>HSK 1–3, YCT 1–4, and a curated Starter 500. Two-layer onboarding. Character seeding scripts. Stroke order data from Make Me a Hanzi for 9,000+ characters.</p>
+    </div>
+    <div class="card">
+      <h4>Real Quality Record</h4>
+      <p>198 bugs tracked. 197 fixed. 1 deferred. Two full production audit passes. Row-level security. Atomic story creation. Webhook idempotency. Production-grade hardening.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Bottom line:</strong> A school pilot using Model A (Branded Partnership) would be deploying an already-running application with an existing user base — not waiting for a build to complete. The core question is adding a teacher view and institutional billing, not building the learning product itself.
+  </div>
+</section>
+
+<!-- ═══════════ 09 GAP ANALYSIS ═══════════ -->
+<section class="section" id="gaps">
+  <span class="section-num">09</span>
+  <h2>Gap Analysis for B2B Readiness</h2>
+  <p class="section-desc">An honest assessment. Three buckets: ready now, adaptable for pilot, requires real new work.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>Status</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Story generation engine</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>Live, validated, atomic, with retry logic and structured validation.</td>
+        </tr>
+        <tr>
+          <td>Character mastery tracking</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>Three-state model with blended evidence. Event-sourced. Audit trail.</td>
+        </tr>
+        <tr>
+          <td>Worksheet PDF generation</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>Print-ready PDFs with stroke order, 田字格, contextual sentences.</td>
+        </tr>
+        <tr>
+          <td>Student profiles (independent state)</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>Multi-profile with isolated vocabulary, stories, progression.</td>
+        </tr>
+        <tr>
+          <td>XP / gamification / streaks</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>Config-driven. Tunable without code changes.</td>
+        </tr>
+        <tr>
+          <td>Curriculum presets</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>HSK 1–3, YCT 1–4, Starter 500. Framework supports new presets.</td>
+        </tr>
+        <tr>
+          <td>Stroke practice (writing)</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>HanziWriter quiz mode. Architecture locked (ADR-035). Dual entry points.</td>
+        </tr>
+        <tr>
+          <td>Reading flow (pinyin, tap-to-learn)</td>
+          <td><span class="badge badge--ready">Ready Now</span></td>
+          <td>Full reader with per-child pinyin preference, character detail popover.</td>
+        </tr>
+        <tr style="border-top: 2px solid var(--border-strong);">
+          <td>School-specific curriculum presets</td>
+          <td><span class="badge badge--adapt">Pilot-Ready</span></td>
+          <td>Adding a new preset is data configuration. Need school to provide their character list.</td>
+        </tr>
+        <tr>
+          <td>Student-to-class association</td>
+          <td><span class="badge badge--adapt">Pilot-Ready</span></td>
+          <td>Child profile needs a class_id field. Lightweight schema addition.</td>
+        </tr>
+        <tr>
+          <td>Teacher read-only progress view</td>
+          <td><span class="badge badge--adapt">Pilot-Ready</span></td>
+          <td>Data APIs exist (GET /progress/:childId). Need a frontend view scoped to a class.</td>
+        </tr>
+        <tr>
+          <td>Co-branded login / onboarding</td>
+          <td><span class="badge badge--adapt">Pilot-Ready</span></td>
+          <td>School logo + welcome message on login. CSS variable override. Low lift.</td>
+        </tr>
+        <tr>
+          <td>Invite-based enrollment</td>
+          <td><span class="badge badge--adapt">Pilot-Ready</span></td>
+          <td>Teacher generates invite link → parent signs up → child auto-associated with class.</td>
+        </tr>
+        <tr>
+          <td>Worksheet branding (school name on PDFs)</td>
+          <td><span class="badge badge--adapt">Pilot-Ready</span></td>
+          <td>PDF template change. Puppeteer renders from HTML — adding a header is trivial.</td>
+        </tr>
+        <tr style="border-top: 2px solid var(--border-strong);">
+          <td>Tenant / school entity layer</td>
+          <td><span class="badge badge--build">B2B Extension</span></td>
+          <td>New DB entity: school → classes → students. Multi-tenant data isolation. Biggest architectural addition.</td>
+        </tr>
+        <tr>
+          <td>Teacher dashboard (full)</td>
+          <td><span class="badge badge--build">B2B Extension</span></td>
+          <td>Class roster management, aggregate mastery views, assignment system. New frontend pages + API routes.</td>
+        </tr>
+        <tr>
+          <td>Roster import (CSV / bulk)</td>
+          <td><span class="badge badge--build">B2B Extension</span></td>
+          <td>Parse CSV → create parent accounts + child profiles → associate with class.</td>
+        </tr>
+        <tr>
+          <td>School-level analytics</td>
+          <td><span class="badge badge--build">B2B Extension</span></td>
+          <td>Aggregate queries across all students in a school. Data exists; aggregation layer is new.</td>
+        </tr>
+        <tr>
+          <td>Institutional billing</td>
+          <td><span class="badge badge--build">B2B Extension</span></td>
+          <td>School pays for N seats. Per-student or per-class pricing. New billing entity.</td>
+        </tr>
+        <tr>
+          <td>Branding / theme controls (OEM)</td>
+          <td><span class="badge badge--build">B2B Extension</span></td>
+          <td>CSS variable override system, asset pipeline for custom mascots. Only needed for Model B/C.</td>
+        </tr>
+        <tr>
+          <td>COPPA / parental consent</td>
+          <td><span class="badge badge--build">B2B Extension</span></td>
+          <td>Known gap. Email verification + parental consent flow. Pre-launch blocker for B2C too.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="gap-summary">
+    <div class="gap-pill" style="background:var(--ready-bg);">
+      <div class="num" style="color:var(--ready);">8</div>
+      <div class="label" style="color:var(--ready);">Ready Now</div>
+    </div>
+    <div class="gap-pill" style="background:var(--adapt-bg);">
+      <div class="num" style="color:var(--adapt);">6</div>
+      <div class="label" style="color:var(--adapt);">Pilot-Ready (Light Adapt)</div>
+    </div>
+    <div class="gap-pill" style="background:var(--build-bg);">
+      <div class="num" style="color:var(--build);">7</div>
+      <div class="label" style="color:var(--build);">B2B Extension Required</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 PILOT PROPOSAL ═══════════ -->
+<section class="section" id="pilot">
+  <span class="section-num">10</span>
+  <h2>School Pilot Proposal</h2>
+  <p class="section-desc">A concrete pilot structure using Model A (Branded Partnership) with a single school.</p>
+
+  <div class="pilot-box">
+    <h3 style="margin-bottom:20px;">Pilot Parameters</h3>
+    <div class="pilot-grid">
+      <div class="pilot-stat"><div class="num">1</div><div class="label">School</div></div>
+      <div class="pilot-stat"><div class="num">1–2</div><div class="label">Classes</div></div>
+      <div class="pilot-stat"><div class="num">15–30</div><div class="label">Students</div></div>
+      <div class="pilot-stat"><div class="num">8</div><div class="label">Weeks</div></div>
+    </div>
+  </div>
+
+  <h3>Week-by-Week Structure</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Activity</th>
+          <th>Participants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>0 (Setup)</strong></td>
+          <td>School provides class roster + curriculum alignment. WanderWords creates accounts, sets curriculum presets, configures school branding on login. Teacher walkthrough session.</td>
+          <td>School admin, teacher, WanderWords</td>
+        </tr>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>Parents receive invite links. Onboard their children. First story generated in class (guided). Worksheet printed and sent home.</td>
+          <td>Teacher, parents, students</td>
+        </tr>
+        <tr>
+          <td><strong>2–3</strong></td>
+          <td>Students generate 2–3 stories per week at home. Parents review hard characters. Worksheets printed. Teacher checks class progress weekly.</td>
+          <td>Parents + students (daily), teacher (weekly)</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td>Mid-pilot check-in. Review engagement metrics (stories generated, worksheets completed, streak rates). Adjust curriculum alignment if needed.</td>
+          <td>Teacher, WanderWords, school admin</td>
+        </tr>
+        <tr>
+          <td><strong>5–7</strong></td>
+          <td>Continued use. Teacher begins using mastery data to inform class planning. Parents provide qualitative feedback.</td>
+          <td>All participants</td>
+        </tr>
+        <tr>
+          <td><strong>8</strong></td>
+          <td>Pilot wrap. Measure outcomes. Present results. Discuss expansion to additional classes or full-school deployment.</td>
+          <td>School admin, teacher, WanderWords</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>What Gets Measured</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Engagement</h4>
+      <ul>
+        <li>Stories generated per student per week</li>
+        <li>Worksheets completed</li>
+        <li>Writing practice sessions</li>
+        <li>Streak maintenance rate</li>
+        <li>Average session duration</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Learning Outcomes</h4>
+      <ul>
+        <li>Characters moved to "known" per student</li>
+        <li>Characters moved to "practicing" per student</li>
+        <li>XP earned (proxy for activity volume)</li>
+        <li>Level progression</li>
+        <li>Pre/post character recognition count</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Satisfaction</h4>
+      <ul>
+        <li>Parent NPS survey (week 4 + week 8)</li>
+        <li>Teacher qualitative feedback</li>
+        <li>Student engagement (return rate, theme choices)</li>
+        <li>"Would you continue?" conversion question</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>What Success Looks Like</h3>
+  <div class="callout">
+    <strong>Pilot success criteria:</strong> 60%+ of students generating at least 2 stories/week by week 4. Measurable character mastery progression (average 15+ new characters moved to "known" over 8 weeks). Parent NPS above 40. Teacher reports that mastery data influenced at least 2 class planning decisions. School admin expresses interest in expanding to additional classes.
+  </div>
+</section>
+
+<!-- ═══════════ 11 COMMERCIAL MODELS ═══════════ -->
+<section class="section" id="commercial">
+  <span class="section-num">11</span>
+  <h2>Commercial Models</h2>
+  <p class="section-desc">Possible B2B monetization structures. These are model frameworks, not final pricing.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Structure</th>
+          <th>Includes</th>
+          <th>Best For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Per-Student Seat</strong></td>
+          <td>Annual fee per enrolled student</td>
+          <td>Full student access, parent access, teacher dashboard, worksheets, all content</td>
+          <td>Schools with stable enrollment</td>
+        </tr>
+        <tr>
+          <td><strong>Per-Class License</strong></td>
+          <td>Annual fee per class (up to N students)</td>
+          <td>Same as seat model but bundled. Simpler for schools that think in classes.</td>
+          <td>Weekend schools, after-school programs</td>
+        </tr>
+        <tr>
+          <td><strong>School-Wide License</strong></td>
+          <td>Annual school-level subscription</td>
+          <td>Unlimited students and classes. Teacher dashboard. Admin panel.</td>
+          <td>Larger academies wanting simplicity</td>
+        </tr>
+        <tr>
+          <td><strong>Setup + Annual</strong></td>
+          <td>One-time onboarding fee + recurring annual</td>
+          <td>Curriculum alignment, roster import, teacher training, co-branding setup</td>
+          <td>Model A partnerships with customization</td>
+        </tr>
+        <tr>
+          <td><strong>White-Label Premium</strong></td>
+          <td>Setup + annual license + per-student royalty</td>
+          <td>Full white-label deployment with custom branding, domain, mascots, curriculum</td>
+          <td>Academy chains, franchise operations</td>
+        </tr>
+        <tr>
+          <td><strong>API / Engine License</strong></td>
+          <td>Annual platform fee + usage-based</td>
+          <td>Story generation API, progression API, worksheet PDF API. Documentation and SLA.</td>
+          <td>EdTech platforms, LMS integrators</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>For an initial pilot, the recommended approach is a free or heavily discounted 8-week trial (one class, ~20 students) that converts to a per-class or school-wide annual license based on results. This removes purchase friction and lets the data make the case.</p>
+</section>
+
+<!-- ═══════════ 12 STRATEGIC POSITIONING ═══════════ -->
+<section class="section" id="positioning">
+  <span class="section-num">12</span>
+  <h2>Strategic Positioning</h2>
+  <p class="section-desc">What WanderWords becomes in B2B terms.</p>
+
+  <div class="positioning">
+    <h3>WanderWords is not an app. It is an engine.</h3>
+    <p>Specifically: a Mandarin reading, writing, and engagement engine with adaptive story generation, competency-tracked character mastery, printable reinforcement materials, and a gamification layer — deployable as a school companion product, a white-labeled institutional tool, or an invisible curriculum engine inside someone else's platform.</p>
+  </div>
+
+  <div class="flow">
+    <div class="flow-step">Mandarin School</div>
+    <span class="flow-arrow">+</span>
+    <div class="flow-step flow-step--active">WanderWords Engine</div>
+    <span class="flow-arrow">=</span>
+    <div class="flow-step">7-Day-a-Week<br>Learning Program</div>
+  </div>
+
+  <p>The institutional opportunity is not "selling an app to schools." It is transforming what a Mandarin school can offer its families — from "2 hours of class per week" to "a complete, always-on learning system that tracks every character, adapts to every student, and gives parents something tangible to see."</p>
+
+  <p>Schools that adopt this don't just add a tool. They fundamentally change their value proposition to parents — and that changes retention, referrals, and willingness to pay.</p>
+
+  <div class="footer-block">
+    <p><strong>Prepared by:</strong> WanderWords · app.wanderwords.co · kk@thebricksquare.com</p>
+    <p><strong>Classification:</strong> Confidential — Partnership Discussion Material</p>
+    <p><strong>Date:</strong> April 2026</p>
+  </div>
+</section>
+
+</div>
+
+<!-- ═══════════ NAV ACTIVE STATE ═══════════ -->
+<script>
+  const sections = document.querySelectorAll('.section[id], .hero[id]');
+  const navLinks = document.querySelectorAll('.nav-list a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-list a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
